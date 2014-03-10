@@ -35,7 +35,7 @@ public class ResourceBrowseController {
 	@Value("${browser.cache.seconds}")
 	private Integer expireSeconds;
 	
-	@RequestMapping(method = { RequestMethod.GET }, value = { "/generic/{groupId:group\\d+}/{f1:M\\d+}/{f2:\\w{2}}/{f3:\\w{2}}/{f4:.*}" })
+	@RequestMapping(method = { RequestMethod.GET }, value = { "/generic/{groupId:g\\d+}/{f1:M\\d+}/{f2:\\w{2}}/{f3:\\w{2}}/{f4:.*}" })
 	@ResponseBody
 	public byte[] showGenericResource(@PathVariable("groupId") String groupId, @PathVariable("f1") String f1, @PathVariable("f2") String f2, @PathVariable("f3") String f3, @PathVariable("f4") String f4, HttpServletRequest request, HttpServletResponse response) throws NoSuchRequestHandlingMethodException {
 		try {
@@ -53,7 +53,7 @@ public class ResourceBrowseController {
 	
 	private ImageGeometry imageGeometry350x350 = new ImageGeometry(new ImageSize(350, 350), GeometryOperator.Emphasize);
 	
-	@RequestMapping(method = { RequestMethod.GET }, value = { "/350x350/{groupId:group\\d+}/{f1:M\\d+}/{f2:\\w{2}}/{f3:\\w{2}}/{f4:.*}" } )
+	@RequestMapping(method = { RequestMethod.GET }, value = { "/350x350/{groupId:g\\d+}/{f1:M\\d+}/{f2:\\w{2}}/{f3:\\w{2}}/{f4:.*}" } )
 	@ResponseBody
 	public byte[] show350x350Image(@PathVariable("groupId") String groupId, @PathVariable("f1") String f1, @PathVariable("f2") String f2, @PathVariable("f3") String f3, @PathVariable("f4") String f4, HttpServletRequest request, HttpServletResponse response) throws NoSuchRequestHandlingMethodException {
 		try {
@@ -72,7 +72,7 @@ public class ResourceBrowseController {
 	
 	private ImageGeometry imageGeometry160x160 = new ImageGeometry(new ImageSize(160, 160), GeometryOperator.Emphasize);
 	
-	@RequestMapping(method = { RequestMethod.GET }, value = { "/160x160/{groupId:group\\d+}/{f1:M\\d+}/{f2:\\w{2}}/{f3:\\w{2}}/{f4:.*}" } )
+	@RequestMapping(method = { RequestMethod.GET }, value = { "/160x160/{groupId:g\\d+}/{f1:M\\d+}/{f2:\\w{2}}/{f3:\\w{2}}/{f4:.*}" } )
 	@ResponseBody
 	public byte[] show160x160Image(@PathVariable("groupId") String groupId, @PathVariable("f1") String f1, @PathVariable("f2") String f2, @PathVariable("f3") String f3, @PathVariable("f4") String f4, HttpServletRequest request, HttpServletResponse response) throws NoSuchRequestHandlingMethodException {
 		try {

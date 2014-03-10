@@ -99,7 +99,7 @@ public class ResourceUploadController {
 		}
 	}
 	
-	@RequestMapping(method = { RequestMethod.DELETE }, value = { "/{groupId:group\\d+}/{f1:M\\d+}/{f2:\\w{2}}/{f3:\\w{2}}/{f4:.*}" })
+	@RequestMapping(method = { RequestMethod.DELETE }, value = { "/{groupId:g\\d+}/{f1:M\\d+}/{f2:\\w{2}}/{f3:\\w{2}}/{f4:.*}" })
 	@ResponseBody
 	public Message<String> deleteResource(@PathVariable("groupId") String groupId, @PathVariable("f1") String f1, @PathVariable("f2") String f2, @PathVariable("f3") String f3, @PathVariable("f4") String f4,  HttpServletRequest request) throws NoSuchRequestHandlingMethodException {
 		try {
