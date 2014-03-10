@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="3.0">
 	
 	<display-name>xUltimate</display-name>
-	<description>xUltimate Upload Project</description>
+	<description>xUltimate Resource Upload Project</description>
 	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
