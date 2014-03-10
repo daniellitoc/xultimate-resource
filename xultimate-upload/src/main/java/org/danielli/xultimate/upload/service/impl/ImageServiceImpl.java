@@ -32,7 +32,7 @@ public class ImageServiceImpl implements ImageService {
 	}
 	
 	@Override
-	public byte[] resizeImage(String imageFilename, byte[] data, ImageGeometry imageGeometry, Gravity gravity) {
+	public byte[] resizeImage(String imageFilename, byte[] data, ImageGeometry imageGeometry, Gravity gravity) throws ImageInfoException {
 		ImageFormat imageFormat = ImageUtils.getExtension(imageFilename);
 		File sourceImageFile = ResourceUtils.getFileSystemResource(getRandomFilePath(imageFormat)).getFile();
 		File destImageFile = ResourceUtils.getFileSystemResource(getRandomFilePath(imageFormat)).getFile();

@@ -27,9 +27,9 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 	
-	<util:properties id="testProperties" location="classpath:upload.properties" />
+	<util:properties id="resourceProperties" location="classpath:resource.properties" />
 	<util:list id="encryptPropertyPlaceholderConfigurerLocalArray">
-		<ref bean="testProperties"/>
+		<ref bean="resourceProperties"/>
 	</util:list>
 	<bean parent="encryptPropertyPlaceholderConfigurer" p:propertiesArray-ref="encryptPropertyPlaceholderConfigurerLocalArray" p:decryptor-ref="stringStringAESCryptor" >
 		<property name="encryptPropertyNames">
@@ -41,7 +41,7 @@
 	
 	<!-- 国际化支持 -->
 	<util:list id="basenames" value-type="java.lang.String">
-		<value>test</value>
+		<value>upload</value>
 	</util:list>
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource" p:basenames-ref="basenames" />
 	
