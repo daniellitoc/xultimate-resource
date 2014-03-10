@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="3.0">
 	
 	<display-name>xUltimate</display-name>
-	<description>xUltimate Browser Project</description>
+	<description>xUltimate Resource Browse Project</description>
 	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>

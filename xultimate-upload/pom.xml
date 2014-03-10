@@ -5,16 +5,16 @@
 
 	<parent>
 		<groupId>org.danielli.xultimate</groupId>
-		<artifactId>xultimate-image</artifactId>
+		<artifactId>xultimate-resource</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>xultimate-upload</artifactId>
 	<packaging>war</packaging>
 
-	<name>The X-Ultimate Image Upload</name>
-	<description>The X-Ultimate Image upload project.</description>
-	<url>https://github.com/daniellitoc/xultimate-image/tree/master/xultimate-upload</url>
+	<name>The X-Ultimate Resource Upload</name>
+	<description>The X-Ultimate Resource upload project.</description>
+	<url>https://github.com/daniellitoc/xultimate-resource/tree/master/xultimate-upload</url>
 
 	<dependencies>
 		<dependency>

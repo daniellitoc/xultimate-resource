@@ -6,16 +6,16 @@
 
 	<parent>
 		<groupId>org.danielli.xultimate</groupId>
-		<artifactId>xultimate-image</artifactId>
+		<artifactId>xultimate-resource</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>xultimate-browser</artifactId>
+	<artifactId>xultimate-browse</artifactId>
 	<packaging>war</packaging>
 
-	<name>The X-Ultimate Image Browser</name>
-	<description>The X-Ultimate Image browser project.</description>
-	<url>https://github.com/daniellitoc/xultimate-image/tree/master/xultimate-browser</url>
+	<name>The X-Ultimate Resource Browse</name>
+	<description>The X-Ultimate Resource browse project.</description>
+	<url>https://github.com/daniellitoc/xultimate-resource/tree/master/xultimate-browse</url>
 
 	<dependencies>
 		<dependency>
@@ -42,6 +42,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>xultimate-browser</finalName>
+		<finalName>xultimate-browse</finalName>
 	</build>
 </project>

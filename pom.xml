@@ -4,16 +4,16 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.danielli.xultimate</groupId>
-	<artifactId>xultimate-image</artifactId>
+	<artifactId>xultimate-resource</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>The X-Ultimate Image Parent</name>
-	<description>The X-Ultimate Image parent project.</description>
-	<url>https://github.com/daniellitoc/xultimate-image/</url>
+	<name>The X-Ultimate Resource Parent</name>
+	<description>The X-Ultimate Resource parent project.</description>
+	<url>https://github.com/daniellitoc/xultimate-resource/</url>
 
 	<modules>
-		<module>xultimate-browser</module>
+		<module>xultimate-browse</module>
 		<module>xultimate-upload</module>
 	</modules>
 
