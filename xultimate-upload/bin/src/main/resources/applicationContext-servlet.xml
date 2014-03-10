@@ -26,12 +26,43 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-
-	<bean id="imageCommandPostProcessor" class="org.danielli.xultimate.context.image.im4java.support.RunCommandPostProcessor" />
-
+		
+	<context:component-scan base-package="org.danielli.xultimate.upload.web.controller">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 	
-	<!-- 
-	<bean id="awtImageResizeTemplate" class="org.danielli.xultimate.context.image.awt.support.ImageResizeTemplateImpl" />
-	 -->
-	<bean id="imageResizeTemplate" class="org.danielli.xultimate.context.image.im4java.support.ImageResizeTemplateImpl" p:useGraphicsMagick="true" p:imageCommandPostProcessor-ref="imageCommandPostProcessor" />
+	<bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller" p:packagesToScan="org.danielli.xultimate" />
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+	<mvc:annotation-driven validator="validator">
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter" />
+			<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+			<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter" />
+        	<bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter" c:marshaller-ref="marshaller" />
+        	<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 设置本地化 -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.FixedLocaleResolver" c:locale="zh_CN" />
+
+	<!-- HTTL视图解析器 -->
+	<bean class="org.danielli.xultimate.web.servlet.view.httl.HttlViewResolver" p:order="80" p:contentType="text/html; charset=utf8" p:suffix=".httl">
+		<property name="httlProperties">
+			<value>
+				template.directory=/WEB-INF/template/httl
+				input.encoding=UTF-8
+				output.encoding=UTF-8
+			</value>
+		</property>
+	</bean>
+	 
+	<mvc:view-controller path="/resources/image/add" view-name="upload1" />
+	<mvc:view-controller path="/resources/add" view-name="upload2" />
+	 
+	<!-- 文件上传解析 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="utf-8" />
+
+	<!-- 异常处理 -->
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver" p:order="0" />
 </beans>

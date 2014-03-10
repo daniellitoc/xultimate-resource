@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>图片上传</title>
+<style>
+.progress {
+	position: relative;
+	width: 400px;
+	border: 1px solid #ddd;
+	padding: 1px;
+	border-radius: 3px;
+}
+
+.bar {
+	background-color: #B4F5B4;
+	width: 0%;
+	height: 20px;
+	border-radius: 3px;
+}
+
+.percent {
+	position: absolute;
+	display: inline-block;
+	top: 3px;
+	left: 48%;
+}
+</style>
+</head>
+<body>
+	<table align="center">
+		<tr>
+			<th colspan="2">图片上传</th>
+		</tr>
+		<tr>
+			<form id="myForm" action="/xultimate-upload/resources/image" method="post" enctype="multipart/form-data">
+				<td><input type="file" name="multipartFile"></td>
+				<td><input type="submit" value="Submit" /></td>
+			</form>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="progress">
+					<div class="bar"></div>
+					<div class="percent">0%</div>
+				</div>
+				<div id="status"></div>
+			</td>
+		</tr>
+	</table>
+	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</body>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+<script type="text/javascript" src="http://malsup.github.io/jquery.form.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var $bar = $('.bar');
+		var $percent = $('.percent');
+		
+		var $container = $("#container");
+
+		$('#myForm').submit(function() {
+			// inside event callbacks 'this' is the DOM element so we first 
+			// wrap it in a jQuery object and then invoke ajaxSubmit 
+			$(this).ajaxSubmit({
+				dataType : 'json',
+				beforeSend : function() {
+					var percentVal = '0%';
+					$bar.width(percentVal)
+					$percent.html(percentVal);
+				},
+				uploadProgress : function( event, position, total, percentComplete) {
+					var percentVal = percentComplete + '%';
+					$bar.width(percentVal)
+					$percent.html(percentVal);
+				},
+				success : function(responseJson) {
+					if (responseJson.type != "SUCCESS") {
+						alert(responseJson.content);
+						return;
+					}
+					var percentVal = '100%';
+					$bar.width(percentVal)
+					$percent.html(percentVal);
+					$container.append('<a href="javascript:void(0)" path=' + responseJson.content + '>' + responseJson.content + '</a>');
+				}
+			});
+
+			// !!! Important !!! 
+			// always return false to prevent standard browser submit and page navigation 
+			return false;
+		});
+		$("body").on("click","a[path]", function() {
+			var $this = $(this);
+			var url = "/xultimate-upload/resources/" + $this.attr("path");
+			$.ajax({
+				  url: url,
+				  type: "delete",
+				  dataType: "json",
+				  success: function(responseJson) {
+					  if (responseJson.type == "SUCCESS") {
+						  $this.remove();
+					  }
+					  alert(responseJson.content);
+				  }
+			});
+		});
+	});
+</script>
+</html>

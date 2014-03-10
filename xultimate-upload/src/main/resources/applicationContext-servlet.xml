@@ -27,28 +27,50 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 		
-	<!-- 自动扫描com.baobaotao.web 包下的@Controller标注的类控制器类 -->
-	<context:component-scan base-package="org.danielli.xultimate.browser.controller">
+	<context:component-scan base-package="org.danielli.xultimate.upload.web.controller">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
-	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
-	<mvc:annotation-driven />
-	
-	
-	<util:list id="messageConverters">
-		<bean class="org.springframework.http.converter.StringHttpMessageConverter" />
-		<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
-		<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter" />
-        <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter" />
-    </util:list>
-	
+	<bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller" p:packagesToScan="org.danielli.xultimate" />
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+	<mvc:annotation-driven validator="validator" content-negotiation-manager="contentNegotiationManager">
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter" />
+			<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+			<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter" />
+        	<bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter" c:marshaller-ref="marshaller" />
+        	<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean" p:defaultContentType="text/html" p:ignoreAcceptHeader="false" p:favorPathExtension="false" p:favorParameter="true" p:parameterName="content">
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html" />
+				<entry key="xml" value="application/xml" />
+				<entry key="json" value="application/json" />
+			</map>
+		</property>
+	</bean>
 	<!-- 设置本地化 -->
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.FixedLocaleResolver" c:locale="zh_CN" />
+
+	<!-- HTTL视图解析器 -->
+	<bean class="org.danielli.xultimate.web.servlet.view.httl.HttlViewResolver" p:order="80" p:contentType="text/html; charset=utf8" p:suffix=".httl">
+		<property name="httlProperties">
+			<value>
+				template.directory=/WEB-INF/template/httl
+				input.encoding=UTF-8
+				output.encoding=UTF-8
+			</value>
+		</property>
+	</bean>
+	 
+	<mvc:view-controller path="/resources/image/add" view-name="upload1" />
+	<mvc:view-controller path="/resources/add" view-name="upload2" />
 	 
 	<!-- 文件上传解析 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="utf-8" />
 
 	<!-- 异常处理 -->
-	<bean id="exceptionResolver" class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver" p:order="-1" />
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver" p:order="0" />
 </beans>

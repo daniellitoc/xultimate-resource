@@ -49,13 +49,19 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
-	<bean id="loadFastDFS" class="org.danielli.xultimate.context.dfs.fastdfs.support.ClientGlobalInitializer" p:configResource="classpath:fdfs_client.conf" lazy-init="false" />
-	<bean id="trackerClient" class="org.csource.fastdfs.TrackerClient" depends-on="loadFastDFS" />
+	<bean class="org.danielli.xultimate.context.dfs.fastdfs.support.ClientGlobalInitializer" p:configResource="classpath:fdfs_client.conf" lazy-init="false" />
+	<bean id="trackerClient" class="org.csource.fastdfs.TrackerClient" />
 	<bean id="storageClientTemplate" class="org.danielli.xultimate.context.dfs.fastdfs.support.StorageClientTemplate" p:trackerClient-ref="trackerClient" />
 
 	<util:list id="imageCommandPostProcessors">
 		<bean class="org.danielli.xultimate.context.image.im4java.support.RunCommandPostProcessor" />
 	</util:list>
-
-	<bean id="imageResizeTemplate" class="org.danielli.xultimate.context.image.im4java.support.ImageResizeTemplateImpl" p:useGraphicsMagick="true" p:imageCommandPostProcessors-ref="imageCommandPostProcessors" />
+	<bean id="awtImageInfoTemplate" class="org.danielli.xultimate.context.image.awt.support.ImageInfoTemplateImpl" />
+	<bean id="im4javaImageInfoTemplate" class="org.danielli.xultimate.context.image.im4java.support.ImageInfoTemplateImpl" p:useGraphicsMagick="true" p:imageCommandPostProcessors-ref="imageCommandPostProcessors" />
+	<bean id="awtImageResizeTemplate" class="org.danielli.xultimate.context.image.awt.support.ImageResizeTemplateImpl" />
+	<bean id="im4javaImageResizeTemplate" class="org.danielli.xultimate.context.image.im4java.support.ImageResizeTemplateImpl" p:useGraphicsMagick="true" p:imageCommandPostProcessors-ref="imageCommandPostProcessors" />
+	<bean id="awtImageCropTemplateImpl" class="org.danielli.xultimate.context.image.awt.support.ImageCropTemplateImpl" />
+	<bean id="im4javaImageCropTemplateImpl" class="org.danielli.xultimate.context.image.im4java.support.ImageCropTemplateImpl" p:useGraphicsMagick="true" p:imageCommandPostProcessors-ref="imageCommandPostProcessors" />
+	<bean id="awtImageCompositeTemplate" class="org.danielli.xultimate.context.image.awt.support.ImageCompositeTemplateImpl" />
+	<bean id="im4javaImageCompositeTemplate" class="org.danielli.xultimate.context.image.im4java.support.ImageCompositeTemplateImpl" p:useGraphicsMagick="true" p:imageCommandPostProcessors-ref="imageCommandPostProcessors" />
 </beans>

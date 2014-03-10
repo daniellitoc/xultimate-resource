@@ -1,11 +1,11 @@
-package org.danielli.xultimate.upload.service;
+package org.danielli.xultimate.upload.biz;
 
 import java.util.Map;
 
 import org.danielli.xultimate.context.dfs.DistributedFileSystemException;
 
-public interface ResourceService {
-	
+public interface StorageBiz {
+
 	String uploadResource(String extension, byte[] resourceData, Map<String, String> metadata) throws DistributedFileSystemException;
 	
 	Map<String, String> getMetadataByPath(String resourcePath) throws DistributedFileSystemException;

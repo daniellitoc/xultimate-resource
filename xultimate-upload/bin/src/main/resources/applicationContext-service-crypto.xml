@@ -26,36 +26,11 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-	
-	<util:properties id="testProperties" location="classpath:upload.properties" />
-	<util:list id="encryptPropertyPlaceholderConfigurerLocalArray">
-		<ref bean="testProperties"/>
-	</util:list>
-	<bean parent="encryptPropertyPlaceholderConfigurer" p:propertiesArray-ref="encryptPropertyPlaceholderConfigurerLocalArray" p:decryptor-ref="stringStringAESCryptor" >
-		<property name="encryptPropertyNames">
-			<value>
-			
-			</value>
-		</property>
-	</bean>
-	
-	<!-- 国际化支持 -->
-	<util:list id="basenames" value-type="java.lang.String">
-		<value>test</value>
-	</util:list>
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource" p:basenames-ref="basenames" />
-	
-	<context:component-scan base-package="org.danielli.xultimate.upload">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-	</context:component-scan>
-	
-	<bean id="loadFastDFS" class="org.danielli.xultimate.context.dfs.fastdfs.support.ClientGlobalInitializer" p:configResource="classpath:fdfs_client.conf" lazy-init="false" />
-	<bean id="trackerClient" class="org.csource.fastdfs.TrackerClient" depends-on="loadFastDFS" />
-	<bean id="storageClientTemplate" class="org.danielli.xultimate.context.dfs.fastdfs.support.StorageClientTemplate" p:trackerClient-ref="trackerClient" />
+	<bean id="aesCryptor" class="org.danielli.xultimate.context.crypto.support.SymmetricAlgorithmsCryptor" p:secretKeyString="myKey" p:symmetricAlgorithms="AES" />
+	<bean id="hexCodec" class="org.danielli.xultimate.context.codec.support.HexCodec" />
+	<bean id="byteArrayStringHexCodec" class="org.danielli.xultimate.context.codec.support.ByteArrayStringCoder" p:decoder-ref="hexCodec" p:encoder-ref="hexCodec" />
+	<bean id="stringStringAESCryptor" class="org.danielli.xultimate.context.crypto.support.StringStringCryptor" p:decoder-ref="byteArrayStringHexCodec" p:encoder-ref="byteArrayStringHexCodec" p:decryptor-ref="aesCryptor" p:encryptor-ref="aesCryptor" />
 
-	<util:list id="imageCommandPostProcessors">
-		<bean class="org.danielli.xultimate.context.image.im4java.support.RunCommandPostProcessor" />
-	</util:list>
-
-	<bean id="imageResizeTemplate" class="org.danielli.xultimate.context.image.im4java.support.ImageResizeTemplateImpl" p:useGraphicsMagick="true" p:imageCommandPostProcessors-ref="imageCommandPostProcessors" />
+	<bean id="rsaCryptor" class="org.danielli.xultimate.context.crypto.support.AsymmetricAlgorithmsCryptor" p:asymmetricAlgorithms="RSA" />
+	<bean id="stringStringRSACryptor" class="org.danielli.xultimate.context.crypto.support.StringStringCryptor" p:decoder-ref="byteArrayStringHexCodec" p:encoder-ref="byteArrayStringHexCodec" p:decryptor-ref="rsaCryptor" p:encryptor-ref="rsaCryptor" />
 </beans>
