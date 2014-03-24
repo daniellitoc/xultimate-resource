@@ -1,6 +1,6 @@
 # xultimate-resource #
 
-采用Spring MVC，用于在FastDFS分布式文件系统中完成资源管理(上传、删除、下载)的脚手架。图片类资源的缩放、剪裁、水印等功能通过已封装好AWT和im4java进行处理。
+采用Spring MVC，用于在FastDFS分布式文件系统中完成资源管理(上传、删除、下载)的ShowCase。图片类资源的缩放、剪裁、水印等功能通过已封装好AWT和im4java进行处理。
 
 
 ##### LVS(Keepalived) + HAProxy + Varnish + Tengine + FastDFS + GD #####
