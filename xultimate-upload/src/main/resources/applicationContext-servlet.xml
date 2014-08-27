@@ -67,7 +67,12 @@
 	 
 	<mvc:view-controller path="/resources/image/add" view-name="upload1" />
 	<mvc:view-controller path="/resources/add" view-name="upload2" />
-	 
+	
+	<!-- 装配拦截器 -->
+	<mvc:interceptors>
+		<bean class="org.danielli.xultimate.web.servlet.i18n.RequestContextInterceptor" />
+	</mvc:interceptors>
+	
 	<!-- 文件上传解析 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="utf-8" />
 
