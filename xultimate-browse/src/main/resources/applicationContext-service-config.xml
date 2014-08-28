@@ -27,5 +27,5 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-	<bean id="encryptPropertyPlaceholderConfigurer" class="org.danielli.xultimate.context.support.EncryptPropertyPlaceholderConfigurer" p:ignoreUnresolvablePlaceholders="true" p:ignoreResourceNotFound="true" abstract="true" />
+	<bean id="encryptPropertyPlaceholderConfigurer" class="org.danielli.xultimate.context.support.EncryptPropertyPlaceholderConfigurer" p:ignoreUnresolvablePlaceholders="true" p:ignoreResourceNotFound="false" abstract="true" />
 </beans>
